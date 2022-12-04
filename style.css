@@ -1,0 +1,49 @@
+.container {
+    background-image: -webkit-linear-gradient(white, black);
+    background-color: whitesmoke;
+    margin-top: 30px;
+    margin-inline: auto;
+    width: 600px;
+    height: 900px;
+    border-style: solid;
+  }
+  
+  .title {
+    text-align: center;
+  }
+  
+  .form {
+    padding-inline: 50px;
+  }
+  
+  .form-input {
+    width: 300px;
+  }
+  
+  .btn-wrapper {
+    text-align: center;
+  }
+  
+  .btn-pesan {
+    padding: 15px;
+    background-color: silver;
+    border-radius: 5px;
+  }
+
+  .btn-submit {
+    padding: 15px;
+    background-color: blue;
+    border-radius: 5px;
+  }
+  
+  .form-label {
+    color: black;
+    width: 250px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  #hasil {
+    color: aliceblue;
+    padding-inline: 50px;
+  }

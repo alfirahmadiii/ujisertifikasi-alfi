@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ujisertifikasi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <img src="" alt="">
+    <div class="container">
+        <h2 class="title">Form Pemesanan Tiket Kereta</h2>
+        <form class="form">
+            <table>
+                <tr>
+                    <td class="form-label">
+                        <label for="nama">Nama Lengkap</label>
+                    </td>
+                    <td>
+                        <input type="text" id="nama" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="alamat">Alamat</label>
+                    </td>
+                    <td>
+                        <input type="text" id="alamat" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="nomor_hp">Nomor HP</label>
+                    </td>
+                    <td>
+                        <input type="text" id="nomor_hp" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="kelas">Kelas</label>
+                    </td>
+                    <td>
+                        <select id="kelas" class="form-input">
+                            <option value="10000">Eksekutif - Rp 10.000</option>
+                            <option value="20000">Ekonomi - Rp 20.000</option>
+                            <option value="30000">Bisnis - Rp 30.000</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="kota_keberangkatan">Kota Keberangkatan</label>
+                    </td>
+                    <td>
+                        <input type="text" id="kota_keberangkatan" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="kota_tujuan">Kota Tujuan</label>
+                    </td>
+                    <td>
+                        <input type="text" id="kota_tujuan" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="tanggal_berangkat">Tanggal Berangkat</label>
+                    </td>
+                    <td>
+                        <input type="date" id="tanggal_berangkat" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="dewasa">Penumpang Dewasa</label>
+                    </td>
+                    <td>
+                        <input type="number" id="dewasa" min="0" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="anak_anak">Penumpang Anak-anak</label>
+                    </td>
+                    <td>
+                        <input type="number" id="anak_anak" min="0" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label>Harga Tiket</label>
+                    </td>
+                    <td>
+                        <div id="harga_tiket">Rp 0</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label>Total Bayar</label>
+                    </td>
+                    <td>
+                        <div id="harga_bayar">Rp 0</div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="btn-wrapper">
+                <button type="button" class="btn-pesan" id="btn-pesan">Pesan Tiket</button>
+            </div>
+        </form>
+
+        <div id="hasil">
+            
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+    let data = []
+    data['nama'] = ''
+    data['alamat'] = ''
+    data['nomor_hp'] = ''
+    data['kelas'] = ''
+    data['kota_keberangkatan'] = ''
+    data['kota_tujuan'] = ''
+    data['harga_tiket'] = $('#kelas').val()
+    data['tanggal_berangkat'] = ''
+    data['jumlah_dewasa'] = 0
+    data['jumlah_anak'] = 0
+    data['harga_bayar'] = 0
+
+    $('#harga_tiket').text(`Rp ${data['harga_tiket']}`)
+
+    $('#kelas').on('change', function(){
+        data['harga_tiket'] = $('#kelas').val()
+        data['kelas'] = $('#kelas option:selected').text().split(' - ')[0]
+        $('#harga_tiket').text(`Rp ${data['harga_tiket']}`)
+    })
+
+    $('#dewasa').on('input', function () {
+        data['jumlah_dewasa'] = $('#dewasa').val()
+        data['harga_bayar'] = data['jumlah_dewasa'] * data['harga_tiket']
+        $('#harga_bayar').text(`Rp ${data['harga_bayar']}`)
+    })
+
+    $('#anak_anak').on('input', function () {
+        data['jumlah_anak'] = $('#anak_anak').val()
+        data['harga_bayar'] = data['harga_bayar'] + (data['jumlah_anak'] * data['harga_tiket'] * 0.5)
+        
+        $('#harga_bayar').text(`Rp ${data['harga_bayar']}`)
+    })
+
+    $('#btn-pesan').on('click', function(){
+        data['nama'] = $('#nama').val()
+        data['alamat'] = $('#alamat').val()
+        data['nomor_hp'] = $('#nomor_hp').val()
+        data['kota_keberangkatan'] = $('#kota_keberangkatan').val()
+        data['kota_tujuan'] = $('#kota_tujuan').val()
+        data['tanggal_berangkat'] = $('#tanggal_berangkat').val()
+        data['jumlah_dewasa'] = $('#dewasa').val()
+        data['jumlah_anak'] = $('#anak_anak').val()
+
+        $('#hasil').html(`
+        <table>
+                <tr>
+                    <td>Nama Pemesan</td>
+                    <td>: ${data['nama']}</td>
+                </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td>: ${data['alamat']}</td>
+                </tr>
+                <tr>
+                    <td>No HP</td>
+                    <td>: ${data['nomor_hp']}</td>
+                </tr>
+                <tr>
+                    <td>Kelas</td>
+                    <td>: ${data['kelas']}</td>
+                </tr>
+                <tr>
+                    <td>Kota Keberangkatan</td>
+                    <td>: ${data['kota_keberangkatan']}</td>
+                </tr>
+                <tr>
+                    <td>Kota Tujuan</td>
+                    <td>: ${data['kota_tujuan']}</td>
+                </tr>
+                <tr>
+                    <td>Tanggal Berangkat</td>
+                    <td>: ${data['tanggal_berangkat']}</td>
+                </tr>
+                <tr>
+                    <td>Penumpang Dewasa</td>
+                    <td>: ${data['jumlah_dewasa']} Orang</td>
+                </tr>
+                <tr>
+                    <td>Penumpang Anak-anak</td>
+                    <td>: ${data['jumlah_anak']} Orang</td>
+                </tr>
+                <tr>
+                    <td>Harga Tiket</td>
+                    <td>: Rp ${data['harga_tiket']}</td>
+                </tr>
+                <tr>
+                    <td>Total Bayar</td>
+                    <td>: Rp ${data['harga_bayar']}</td>
+                </tr>
+            </table>
+            
+            <div class="btn-wrapper">
+    <button type="button" class="btn-pesan" id="btn-pesan">Submit</button>
+</div>
+        `)
+    })
+
+</script>
+</body>
+</html>
